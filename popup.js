@@ -1,5 +1,6 @@
 var target = [
 "https://www.youtube.com/watch?v=Jf2INoGxgw4",
+"https://youtube.com/shorts/axZJjrh1PJY",
 ];
 var maxclick=1;
 function tampilkanUrl(){
