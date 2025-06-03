@@ -1,6 +1,6 @@
 var target = [
 "https://www.youtube.com/watch?v=Jf2INoGxgw4",
-"https://youtube.com/shorts/axZJjrh1PJY",
+"https://gofood.link/a/QjRJkXJ",
 ];
 var maxclick=1;
 function tampilkanUrl(){
