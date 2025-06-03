@@ -1,6 +1,5 @@
 var target = [
-"https://www.youtube.com/watch?v=Jf2INoGxgw4",
-"https://gofood.link/a/QjRJkXJ",
+"https://mbelzzz.github.io/script/redir.html",
 ];
 var maxclick=1;
 function tampilkanUrl(){
