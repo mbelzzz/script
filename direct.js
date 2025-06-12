@@ -1,5 +1,5 @@
 var target = [
-"https://www.profitableratecpm.com/aw2prxvd?key=ffee8b30495403f4d74c09fb339f4bee",
+"https://www.youtube.com/watch?v=uBZOktFYT8s",
 ];
 var maxclick=1;
 function tampilkanUrl(){
