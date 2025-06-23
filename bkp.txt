@@ -4,6 +4,8 @@ yunaaa.web.app
 yunaa2.web.app
 yunaa3.web.app
 yunaa4.web.app
+tukang-gali.web.app
+tukang-gali1.web.app
 japppp.web.app (ai)
 
 
