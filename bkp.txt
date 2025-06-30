@@ -1,4 +1,3 @@
-lupaaa.web.app
 yunaaa.web.app
 yunaa2.web.app
 yunaa3.web.app
