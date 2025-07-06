@@ -100,7 +100,9 @@
 </script>
 <script type="text/javascript" src="//www.highperformanceformat.com/2f94194f9e4ec512e586d69f5d789ccf/invoke.js"></script>              </div>
         <!-- video dengan parameters -->
-             
+             <iframe id="videoIframe" allowfullscreen frameborder="0" allow="autoplay; fullscreen; picture-in-picture">
+        Browser Anda tidak mendukung iframe.
+		</iframe>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const videoIframe = document.getElementById('videoIframe');
@@ -119,25 +121,15 @@
             if (videoToPlay) {
                 // Konsep:
                 // Jika Anda menampilkan video dari YouTube, Vimeo, atau layanan pihak ketiga:
-                // videoIframe.src = `https://www.youtube.com/embed/${videoToPlay}?autoplay=1`;
+                 videoIframe.src = `${videoToPlay}`;
                 // Atau:
                 // videoIframe.src = `https://player.vimeo.com/video/${videoToPlay}?autoplay=1`;
-
-                // Jika Anda memiliki halaman khusus di server Anda yang bertindak sebagai "pemutar video"
-                // Contoh: player.html?src=path/to/your/video.mp4
-                // Dalam kasus ini, 'videoToPlay' akan menjadi URL/path video itu sendiri
-                const playerPageUrl = `${encodeURIComponent(videoToPlay)}`;
-                videoIframe.src = playerPageUrl;
-                messageElement.textContent = `Memuat video: ${videoToPlay}`;
-                console.log(`Memuat iframe dengan sumber: ${playerPageUrl}`);
-
             } else {
                 messageElement.textContent = 'Tidak ada video yang ditentukan. Harap gunakan parameter "?play=nama_video_atau_id" di URL.';
                 console.log('Parameter "play" tidak ditemukan di URL.');
             }
         });
     </script>
-	<iframe id="playerPageUrl" src="${videoToPlay}"> allowfullscreen></iframe>
               <!-- Iklan 160x600 (Sisi Kanan) -->
               <div class="ad-side">
             <script type="text/javascript">
