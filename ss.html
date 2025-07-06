@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Halaman Streaming Saya</title>
+    <title>Video Player dengan iframe</title>
     <style>
-        /* CSS sederhana untuk tata letak */
         body {
             font-family: sans-serif;
             display: flex;
@@ -15,161 +14,65 @@
             min-height: 100vh;
             margin: 0;
             background-color: #f0f0f0;
-            color: #333;
         }
-        .container {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            text-align: center;
-            max-width: 900px;
-            width: 100%;
+        iframe {
+            width: 80%;
+            max-width: 800px;
+            height: 450px; /* Rasio aspek 16:9 untuk video */
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
-        h1 {
-            color: #0056b3;
-            margin-bottom: 20px;
-        }
-        .video-wrapper {
-            position: relative;
-            width: 100%;
-            padding-bottom: 56.25%; /* Rasio aspek 16:9 (tinggi/lebar) */
-            height: 0;
-            overflow: hidden;
-            margin-bottom: 20px;
-        }
-        .video-wrapper iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 0; /* Menghilangkan border default iframe */
-        }
-        .channel-info {
-            margin-top: 15px;
-            font-size: 0.9em;
-            color: #555;
-        }
-        .channel-info a {
-            color: #007bff;
-            text-decoration: none;
-        }
-        .channel-info a:hover {
-            text-decoration: underline;
-        }
-        .controls {
+        #message {
             margin-top: 20px;
-        }
-        .controls button {
-            background-color: #007bff;
-            color: white;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1em;
-        }
-        .controls button:hover {
-            background-color: #0056b3;
+            font-size: 1.1em;
+            color: #333;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1 id="streamTitle">Live Stream Kucing Lucu Hari Ini!</h1>
 
-        <div class="video-wrapper">
-            <iframe
-                id="liveStreamFrame"
-                src="" frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen>
-            </iframe>
-        </div>
-
-        <p class="channel-info">
-            Menyajikan konten dari <span id="channelName">Channel Kucing Gemoy</span>. Kunjungi: <a id="channelLink" href="#" target="_blank">Link Channel</a>
-        </p>
-
-        <div class="controls">
-            <button id="changeStreamBtn">Ganti Stream (Demo)</button>
-        </div>
-    </div>
+    <h1>Video Player (iframe)</h1>
+    <iframe id="videoIframe" allowfullscreen frameborder="0" allow="autoplay; fullscreen; picture-in-picture">
+        Browser Anda tidak mendukung iframe.
+    </iframe>
+    <p id="message"></p>
 
     <script>
-        const liveStreamFrame = document.getElementById('liveStreamFrame');
-        const changeStreamBtn = document.getElementById('changeStreamBtn');
-        const streamTitle = document.getElementById('streamTitle');
-        const channelNameSpan = document.getElementById('channelName');
-        const channelLinkAnchor = document.getElementById('channelLink');
-
-        // Daftar URL streaming dan informasinya
-        const streamData = {
-            'youtube_cat': {
-                url: "https://www.youtube.com/embed/jfK72gVwS9c?autoplay=1&mute=1",
-                title: "Live Stream Kucing Lucu Hari Ini!",
-                channel: "Channel Kucing Gemoy",
-                channelUrl: "https://www.youtube.com/channel/UC-n0M274_x2jN5T4xG5k7g"
-            },
-            'youtube_chrome_playlist': {
-                url: "https://www.youtube.com/embed/videoseries?list=PLOU2XLYxmsIIzK7fJd2_s0u463V-N8C_r&autoplay=1&mute=1",
-                title: "Google Chrome Developer Playlist",
-                channel: "Google Chrome Developers",
-                channelUrl: "https://www.youtube.com/@ChromeDevelopers"
-            },
-            'vimeo_example': {
-                url: "https://player.vimeo.com/video/864380731?autoplay=1&loop=1&autopause=0",
-                title: "Contoh Video Vimeo",
-                channel: "Vimeo Official",
-                channelUrl: "https://vimeo.com/"
-            },
-            'default': { // Stream default jika parameter tidak ditemukan atau tidak valid
-                url: "https://www.youtube.com/embed/jfK72gVwS9c?autoplay=1&mute=1",
-                title: "Live Stream Kucing Lucu Hari Ini!",
-                channel: "Channel Kucing Gemoy",
-                channelUrl: "https://www.youtube.com/channel/UC-n0M274_x2jN5T4xG5k7g"
-            }
-        };
-
-        // Fungsi untuk mengambil parameter URL
-        function getUrlParameter(name) {
-            name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
-            const regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
-            const results = regex.exec(location.search);
-            return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
-        }
-
-        // Fungsi untuk memuat stream berdasarkan ID
-        function loadStream(streamId) {
-            const stream = streamData[streamId] || streamData['default']; // Gunakan default jika ID tidak ada
-
-            liveStreamFrame.src = stream.url;
-            streamTitle.textContent = stream.title;
-            channelNameSpan.textContent = stream.channel;
-            channelLinkAnchor.href = stream.channelUrl;
-            console.log(`Memuat stream: ${stream.title} dari ${stream.channel}`);
-        }
-
-        // Logika saat halaman dimuat
         document.addEventListener('DOMContentLoaded', () => {
-            const playParam = getUrlParameter('play');
-            if (playParam) {
-                loadStream(playParam);
-            } else {
-                loadStream('default'); // Muat stream default jika tidak ada parameter 'play'
+            const videoIframe = document.getElementById('videoIframe');
+            const messageElement = document.getElementById('message');
+
+            // Fungsi untuk mendapatkan parameter URL berdasarkan nama
+            function getUrlParameter(name) {
+                name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+                const regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+                const results = regex.exec(location.search);
+                return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
             }
-        });
 
-        // Logika untuk tombol "Ganti Stream (Demo)"
-        const streamKeys = Object.keys(streamData).filter(key => key !== 'default'); // Ambil kunci selain 'default'
-        let currentStreamIndex = 0;
+            const videoToPlay = getUrlParameter('play');
 
-        changeStreamBtn.addEventListener('click', () => {
-            currentStreamIndex = (currentStreamIndex + 1) % streamKeys.length;
-            const nextStreamKey = streamKeys[currentStreamIndex];
-            loadStream(nextStreamKey); // Muat stream berikutnya
+            if (videoToPlay) {
+                // Konsep:
+                // Jika Anda menampilkan video dari YouTube, Vimeo, atau layanan pihak ketiga:
+                // videoIframe.src = `https://www.youtube.com/embed/${videoToPlay}?autoplay=1`;
+                // Atau:
+                // videoIframe.src = `https://player.vimeo.com/video/${videoToPlay}?autoplay=1`;
+
+                // Jika Anda memiliki halaman khusus di server Anda yang bertindak sebagai "pemutar video"
+                // Contoh: player.html?src=path/to/your/video.mp4
+                // Dalam kasus ini, 'videoToPlay' akan menjadi URL/path video itu sendiri
+                const playerPageUrl = `player.html?src=${encodeURIComponent(videoToPlay)}`;
+                videoIframe.src = playerPageUrl;
+                messageElement.textContent = `Memuat video: ${videoToPlay}`;
+                console.log(`Memuat iframe dengan sumber: ${playerPageUrl}`);
+
+            } else {
+                messageElement.textContent = 'Tidak ada video yang ditentukan. Harap gunakan parameter "?play=nama_video_atau_id" di URL.';
+                console.log('Parameter "play" tidak ditemukan di URL.');
+            }
         });
     </script>
+
 </body>
 </html>
