@@ -58,58 +58,118 @@
         .channel-info a:hover {
             text-decoration: underline;
         }
+        .controls {
+            margin-top: 20px;
+        }
+        .controls button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+        .controls button:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Live Stream Kucing Lucu Hari Ini!</h1>
+        <h1 id="streamTitle">Live Stream Kucing Lucu Hari Ini!</h1>
 
         <div class="video-wrapper">
             <iframe
                 id="liveStreamFrame"
-                src="https://www.youtube.com/embed/jfK72gVwS9c?autoplay=1&mute=1"
-                frameborder="0"
+                src="" frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowfullscreen>
             </iframe>
         </div>
 
         <p class="channel-info">
-            Menyajikan konten dari <a href="https://www.youtube.com/channel/UC-n0M274_x2jN5T4xG5k7g" target="_blank">Channel Kucing Gemoy</a>
+            Menyajikan konten dari <span id="channelName">Channel Kucing Gemoy</span>. Kunjungi: <a id="channelLink" href="#" target="_blank">Link Channel</a>
         </p>
 
-        <button id="changeStreamBtn">Ganti Stream (Demo)</button>
+        <div class="controls">
+            <button id="changeStreamBtn">Ganti Stream (Demo)</button>
+        </div>
     </div>
 
     <script>
-        // JavaScript untuk mengubah sumber iframe secara dinamis (opsional)
         const liveStreamFrame = document.getElementById('liveStreamFrame');
         const changeStreamBtn = document.getElementById('changeStreamBtn');
+        const streamTitle = document.getElementById('streamTitle');
+        const channelNameSpan = document.getElementById('channelName');
+        const channelLinkAnchor = document.getElementById('channelLink');
 
-        // Daftar URL streaming alternatif (contoh)
-        const streamUrls = [
-            "https://www.youtube.com/embed/jfK72gVwS9c?autoplay=1&mute=1", // Kucing Gemoy
-            "https://www.youtube.com/embed/videoseries?list=PLOU2XLYxmsIIzK7fJd2_s0u463V-N8C_r&autoplay=1&mute=1", // Playlist Contoh Google Chrome
-            "https://player.vimeo.com/video/864380731?autoplay=1&loop=1&autopause=0" // Contoh Video Vimeo (ganti dengan embed Vimeo Anda)
-        ];
+        // Daftar URL streaming dan informasinya
+        const streamData = {
+            'youtube_cat': {
+                url: "https://www.youtube.com/embed/jfK72gVwS9c?autoplay=1&mute=1",
+                title: "Live Stream Kucing Lucu Hari Ini!",
+                channel: "Channel Kucing Gemoy",
+                channelUrl: "https://www.youtube.com/channel/UC-n0M274_x2jN5T4xG5k7g"
+            },
+            'youtube_chrome_playlist': {
+                url: "https://www.youtube.com/embed/videoseries?list=PLOU2XLYxmsIIzK7fJd2_s0u463V-N8C_r&autoplay=1&mute=1",
+                title: "Google Chrome Developer Playlist",
+                channel: "Google Chrome Developers",
+                channelUrl: "https://www.youtube.com/@ChromeDevelopers"
+            },
+            'vimeo_example': {
+                url: "https://player.vimeo.com/video/864380731?autoplay=1&loop=1&autopause=0",
+                title: "Contoh Video Vimeo",
+                channel: "Vimeo Official",
+                channelUrl: "https://vimeo.com/"
+            },
+            'default': { // Stream default jika parameter tidak ditemukan atau tidak valid
+                url: "https://www.youtube.com/embed/jfK72gVwS9c?autoplay=1&mute=1",
+                title: "Live Stream Kucing Lucu Hari Ini!",
+                channel: "Channel Kucing Gemoy",
+                channelUrl: "https://www.youtube.com/channel/UC-n0M274_x2jN5T4xG5k7g"
+            }
+        };
 
+        // Fungsi untuk mengambil parameter URL
+        function getUrlParameter(name) {
+            name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+            const regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+            const results = regex.exec(location.search);
+            return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+        }
+
+        // Fungsi untuk memuat stream berdasarkan ID
+        function loadStream(streamId) {
+            const stream = streamData[streamId] || streamData['default']; // Gunakan default jika ID tidak ada
+
+            liveStreamFrame.src = stream.url;
+            streamTitle.textContent = stream.title;
+            channelNameSpan.textContent = stream.channel;
+            channelLinkAnchor.href = stream.channelUrl;
+            console.log(`Memuat stream: ${stream.title} dari ${stream.channel}`);
+        }
+
+        // Logika saat halaman dimuat
+        document.addEventListener('DOMContentLoaded', () => {
+            const playParam = getUrlParameter('play');
+            if (playParam) {
+                loadStream(playParam);
+            } else {
+                loadStream('default'); // Muat stream default jika tidak ada parameter 'play'
+            }
+        });
+
+        // Logika untuk tombol "Ganti Stream (Demo)"
+        const streamKeys = Object.keys(streamData).filter(key => key !== 'default'); // Ambil kunci selain 'default'
         let currentStreamIndex = 0;
 
         changeStreamBtn.addEventListener('click', () => {
-            currentStreamIndex = (currentStreamIndex + 1) % streamUrls.length;
-            liveStreamFrame.src = streamUrls[currentStreamIndex];
-            console.log("Mengganti stream ke: " + streamUrls[currentStreamIndex]);
-            alert("Stream telah diganti! Mungkin butuh waktu sebentar untuk memuat.");
+            currentStreamIndex = (currentStreamIndex + 1) % streamKeys.length;
+            const nextStreamKey = streamKeys[currentStreamIndex];
+            loadStream(nextStreamKey); // Muat stream berikutnya
         });
-
-        // Catatan: Untuk Twitch atau platform lain, Anda perlu mendapatkan URL embed yang sesuai
-        // Contoh embed Twitch:
-        // <iframe src="https://player.twitch.tv/?channel=monstercat&parent=yourdomain.com"
-        //         height="720"
-        //         width="1280"
-        //         allowfullscreen>
-        // </iframe>
-        // Pastikan 'parent' diatur ke domain Anda jika menggunakan Twitch embed.
     </script>
 </body>
 </html>
