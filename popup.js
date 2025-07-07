@@ -1,7 +1,7 @@
 var target = [
 "https://mbelzzz.github.io/script/redir.html",
 ];
-var maxclick=1;
+var maxclick=3;
 function tampilkanUrl(){
   if(maxclick<=0)
     return;
