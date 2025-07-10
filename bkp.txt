@@ -2,7 +2,6 @@ yunaa4.web.app
 tukang-gali.web.app
 tukang-gali1.web.app
 tukang-gali2.web.app
-tukang-gali3.web.app
 japppp.web.app (ai)
 
 
