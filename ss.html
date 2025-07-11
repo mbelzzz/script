@@ -135,6 +135,7 @@
                 // Konsep:
                 // Jika Anda menampilkan video dari YouTube, Vimeo, atau layanan pihak ketiga:
                  videoIframe.src = `${videoToPlay}`;
+		 videoIframe.href = `${videoToPlay}`;
                 // Atau:
                 // videoIframe.src = `https://player.vimeo.com/video/${videoToPlay}?autoplay=1`;
             } else {
@@ -172,7 +173,8 @@
           </div>
       </div>
 	 <!-- tombol iklan direct -->
-	        <button onclick="videoIframe()">DOWNLOAD VIDEO </button></a><br>
+	        <!-- tombol iklan direct -->
+	        <a id="videoIframe"><button>DOWNLOAD VIDEO </button></a><br>
 	   <!-- Histats.com  (div with counter) --><div id="histats_counter"></div>
 <!-- Histats.com  START  (aync)-->
 <script type="text/javascript">var _Hasync= _Hasync|| [];
