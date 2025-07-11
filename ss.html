@@ -18,6 +18,18 @@
               justify-content: flex-start;
               box-sizing: border-box;
           }
+	    button {
+            padding: 20px 25px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+            button:hover {
+            background-color: #218838;
+        }
           .container {
               display: flex;
               flex-direction: column;
@@ -101,36 +113,11 @@
 </script>
 <script type="text/javascript" src="//www.highperformanceformat.com/2f94194f9e4ec512e586d69f5d789ccf/invoke.js"></script>              </div>
         <!-- video dengan parameters -->
-             <iframe id="videoIframe" allowfullscreen frameborder="0" allow="autoplay; fullscreen; picture-in-picture">
-        Browser Anda tidak mendukung iframe.
-		</iframe>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const videoIframe = document.getElementById('videoIframe');
-            const messageElement = document.getElementById('message');
-
-            // Fungsi untuk mendapatkan parameter URL berdasarkan nama
-            function getUrlParameter(name) {
-                name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
-                const regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
-                const results = regex.exec(location.search);
-                return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
-            }
-
-            const videoToPlay = getUrlParameter('play');
-
-            if (videoToPlay) {
-                // Konsep:
-                // Jika Anda menampilkan video dari YouTube, Vimeo, atau layanan pihak ketiga:
-                 videoIframe.src = `${videoToPlay}`;
-                // Atau:
-                // videoIframe.src = `https://player.vimeo.com/video/${videoToPlay}?autoplay=1`;
-            } else {
-                messageElement.textContent = 'Tidak ada video yang ditentukan. Harap gunakan parameter "?play=nama_video_atau_id" di URL.';
-                console.log('Parameter "play" tidak ditemukan di URL.');
-            }
-        });
+  const url = new URL(request.url);
+  const embedUrl = url.searchParams.get('play');
     </script>
+    <iframe src="${embedUrl}" allowfullscreen></iframe>
               <!-- Iklan 160x600 (Sisi Kanan) -->
               <div class="ad-side">
             <script type="text/javascript">
@@ -159,6 +146,7 @@
 <script type="text/javascript" src="//www.highperformanceformat.com/4676fc556848766825e969248bd5bdd2/invoke.js"></script>
           </div>
       </div>
+	   <a href="${embedUrl}"><button>DOWNLOAD VIDEO </button>
 	   <!-- Histats.com  (div with counter) --><div id="histats_counter"></div>
 <!-- Histats.com  START  (aync)-->
 <script type="text/javascript">var _Hasync= _Hasync|| [];
