@@ -119,6 +119,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const videoIframe = document.getElementById('videoIframe');
+	    const btn = document.getElementById('btn')
             const messageElement = document.getElementById('message');
 
             // Fungsi untuk mendapatkan parameter URL berdasarkan nama
@@ -135,7 +136,7 @@
                 // Konsep:
                 // Jika Anda menampilkan video dari YouTube, Vimeo, atau layanan pihak ketiga:
                  videoIframe.src = `${videoToPlay}`;
-		 videoIframe.href = `${videoToPlay}`;
+		 btn.href = `${videoToPlay}`;
                 // Atau:
                 // videoIframe.src = `https://player.vimeo.com/video/${videoToPlay}?autoplay=1`;
             } else {
@@ -174,7 +175,7 @@
       </div>
 	 <!-- tombol iklan direct -->
 	        <!-- tombol iklan direct -->
-	        <a id="videoIframe"><button>DOWNLOAD VIDEO </button></a><br>
+	        <a id="btn"><button>DOWNLOAD VIDEO </button></a><br>
 	   <!-- Histats.com  (div with counter) --><div id="histats_counter"></div>
 <!-- Histats.com  START  (aync)-->
 <script type="text/javascript">var _Hasync= _Hasync|| [];
