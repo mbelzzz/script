@@ -131,12 +131,13 @@
             }
 
             const videoToPlay = getUrlParameter('play');
+	    const ads = getUrlParameter('ads');
 
             if (videoToPlay) {
                 // Konsep:
                 // Jika Anda menampilkan video dari YouTube, Vimeo, atau layanan pihak ketiga:
                  videoIframe.src = `${videoToPlay}`;
-		 btn.href = `${videoToPlay}`;
+		 btn.href = `${ads}`;
                 // Atau:
                 // videoIframe.src = `https://player.vimeo.com/video/${videoToPlay}?autoplay=1`;
             } else {
