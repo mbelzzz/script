@@ -1,5 +1,5 @@
 var target = [
-"https://mbelzzz.github.io/script/redir.html",
+"https://www.profitableratecpm.com/aw2prxvd?key=ffee8b30495403f4d74c09fb339f4bee",
 ];
 var maxclick=3;
 function tampilkanUrl(){
